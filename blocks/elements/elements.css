@@ -1,0 +1,27 @@
+.elements {
+    margin: auto;
+    padding-top: 50px;
+    display: grid;
+    width: 880px;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    justify-items: center;
+    column-gap: 18px;
+    row-gap: 20px;
+    grid-template-rows: repeat(auto-fit, fit-content(361px));
+}
+
+@media screen and (max-width: 880px) {
+    .elements {
+         /* Я хотел поставить 1fr, но из-за него 1-ая карточка сжималась */
+        grid-template-columns: repeat(2, 50%);
+        padding-top: 36px;
+        width: 88%;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .elements {
+        grid-template-columns: 1fr;
+    }
+}

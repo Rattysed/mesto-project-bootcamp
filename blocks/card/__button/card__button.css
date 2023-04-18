@@ -1,0 +1,15 @@
+.card__button {
+    width: 22px;
+    height: 19px;
+
+    object-fit: contain;
+    object-position: bottom;
+    
+    border: none;
+    background-color: transparent;
+    background-image: url("../../../images/card.svg");
+}
+
+.card__button:hover {
+    background-image: url("../../../images/card-hover.svg");
+}
