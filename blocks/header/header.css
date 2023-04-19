@@ -2,16 +2,16 @@
     margin: auto;
     padding-top: 45px;
 
-    width: 880px;
-    height: 74px;
-    border-bottom: 1px solid #545454;
+    max-width: 880px;
+    min-height: 74px;
+    border-bottom: 1px solid rgba(54, 54, 54, 0.7);
 }
 
 @media screen and (max-width: 880px) {
     .header {
         margin: 0;
         padding-top: 28px;
-        height: 56px;
+        min-height: 56px;
         width: 100%;
     }
 }

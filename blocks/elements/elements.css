@@ -1,8 +1,8 @@
 .elements {
     margin: auto;
-    padding-top: 50px;
+    padding-top: 46px;
     display: grid;
-    width: 880px;
+    max-width: 880px;
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
     justify-items: center;
@@ -22,6 +22,6 @@
 
 @media screen and (max-width: 640px) {
     .elements {
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
     }
 }

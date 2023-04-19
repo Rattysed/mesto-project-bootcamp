@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
-    <title>Document</title>
+    <title>Проект Место</title>
 </head>
 <body class="page">
     <header class="header">
         <img src="images/logo.svg" alt="Логотип Место" class="header__logo">
     </header>
-    <div class="main">
+    <main class="main">
         <section class="profile">
             <img class="profile__avatar" src="./images/Avatar.jpg" alt="Аватарка">
             <div class="profile__info">
-                <h1 class="profile__name">Виталий Цаль </h1>
-                <button class="profile__edit-button"></button>
+                <h1 class="profile__name">Жак-Ив Кусто </h1>
+                <button type="button" class="profile__edit-button"></button>
                 <p class="profile__description">
                     Да зачем тут что-то писать кроме Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam voluptatum vero perferendis magni ab cupiditate suscipit, inventore eveniet? Officiis optio autem aut, fugiat cumque nobis enim perferendis nihil animi neque natus soluta quasi nisi assumenda reiciendis necessitatibus, veritatis temporibus iure. Ea labore veritatis possimus vero sapiente facere rerum quis at. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est magnam iure explicabo numquam? Quam autem earum dolorum ducimus at assumenda veritatis laudantium unde nostrum? Hic a reprehenderit esse eos assumenda non ipsum suscipit, iste tempore porro quo harum maxime magni sit accusamus officia, velit commodi sed, eum vero soluta consequuntur.
                 </p>
             </div>
-            <button class="profile__add-button">
+            <button type="button" class="profile__add-button">
             </button>
         </section>
         <section class="elements">
@@ -30,46 +30,46 @@
                 <div class="card__details">
                     <h2 class="card__heading">Абоба</h2> 
                     <!-- TODO: Заменить на чекбокс. все остальные сердечки тоже -->
-                    <button class="card__button"></button>
+                    <button type="button" class="card__button"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card2.png" alt="Карточка Эльбрус" class="card__picture">
                 <div class="card__details">
                     <h2 class="card__heading">Абоба</h2>
-                    <button class="card__button"></button>
+                    <button type="button" class="card__button"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card3.png" alt="Карточка Домбай" class="card__picture">
                 <div class="card__details">
                     <h2 class="card__heading">Абоба</h2>
-                    <button class="card__button"></button>
+                    <button type="button" class="card__button"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card2.png" alt="Карточка Эльбрус" class="card__picture">
                 <div class="card__details">
                     <h2 class="card__heading">Абоба</h2>
-                    <button class="card__button"></button>
+                    <button type="button" class="card__button"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card3.png" alt="Карточка Домбай" class="card__picture">
                 <div class="card__details">
                     <h2 class="card__heading">Длинная абоба</h2>
-                    <button class="card__button"></button>
+                    <button type="button" class="card__button"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card1.jpg" alt="Карточка Карачаевск" class="card__picture">
                 <div class="card__details">
                     <h2 class="card__heading">Очень длинная абоба</h2>
-                    <button class="card__button"></button>
+                    <button type="button" class="card__button"></button>
                 </div>
             </div>
         </section>
-    </div>
+    </main>
     <footer class="footer">
         <p class="footer__sign">
             &copy; 2023 Mesto Russia
@@ -77,19 +77,18 @@
     </footer>
     <div class="popup">
         <div class="popup__container">
-            <button class="popup__close-button"></button>
+            <button type="button" class="popup__close-button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form">
                 <fieldset class="popup__form-fieldset">
-                    <input type="text" class="popup__form-field">
-                    <input type="text" class="popup__form-field">
+                    <input name="name" type="text" class="popup__form-field">
+                    <input name="description" type="text" class="popup__form-field">
                 </fieldset>
                 <fieldset class="popup__form-fieldset">
                     <button type="submit" class="popup__form-submit">Сохранить</button>
                 </fieldset>
             </form>
         </div>
-
     </div>
 </body>
 </html>
