@@ -15,7 +15,6 @@
     box-sizing: border-box;
     border: none;
     border-radius: 2px;
-    cursor: pointer;
 }
 
 .popup__form-submit:hover {
