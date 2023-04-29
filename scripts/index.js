@@ -14,11 +14,13 @@ const formFieldLink = cardPopup.querySelector('.popup__form-field[name="link"]')
 const formFieldPostName = cardPopup.querySelector('.popup__form-field[name="name"]');
 
 const popupWithPicture = document.querySelector('.popup[type="picture"]')
+const popupPicture = popupWithPicture.querySelector('.popup__picture')
 
 const closeButtons = document.querySelectorAll('.popup__close-button');
 
 const cardTemplate = document.querySelector(".card-template").content;
 const cardHolder = document.querySelector(".elements");
+
 
 const defaultCardList = [
     {
@@ -54,7 +56,6 @@ function updateCard(cardObject, cardContent) {
     picture.alt = cardContent.name;
     picture.addEventListener('click', () => {
         openPopup(popupWithPicture);
-        const popupPicture = popupWithPicture.querySelector('.popup__picture')
         popupPicture.src = picture.src;
         popupPicture.alt = picture.alt;
         popupWithPicture.querySelector('.popup__picture-description').textContent = cardContent.name;
