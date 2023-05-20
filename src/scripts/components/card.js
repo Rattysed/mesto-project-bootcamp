@@ -1,5 +1,5 @@
-import { openPopup } from './modal';
 import { popupWithPicture, popupPicture } from './utils';
+import { openPopup } from './modal';
 
 const defaultCardList = [
     {

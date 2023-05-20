@@ -10,9 +10,15 @@ function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
 
 function hasInvalidInput(inputList) {
     return inputList.some((inputElement) => {
-        console.log(inputElement);
         return !inputElement.validity.valid;
     })
+}
+
+
+export function updateButton(formElement, buttonSelector, inputSelector, inactiveButtonClass) {
+    const button = formElement.querySelector(buttonSelector);
+    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+    toggleButtonState(inputList, button, inactiveButtonClass);
 }
 
 
