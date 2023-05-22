@@ -23,10 +23,14 @@ const submitButtonSelector = '.popup__form-submit';
 const inactiveButtonClass = 'popup__form-submit_disabled';
 
 
-Promise.all([loadUserInfo(), loadInitialCards()]).then((values) => {
-    setUser(values[0]);
-    setUpCards(values[1]);
-});
+Promise.all([loadUserInfo(), loadInitialCards()])
+    .then((values) => {
+        setUser(values[0]);
+        setUpCards(values[1]);
+    })
+    .catch((err) => {
+        console.log("Ошибка при запросе на сервер: " + err)
+    })
 
 enablePopupClosing();
 enablePopupButtons();
