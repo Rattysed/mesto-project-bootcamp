@@ -1,7 +1,7 @@
 import '../pages/index.css';
-import { createCard } from './components/card.js';
 import { closePopup, openPopup, onProfileSubmit, onCardCreation, setUser, onAvatarUpdate} from './components/modal.js';
 import { enableValidation, updateButton } from './components/validate.js';
+import { setUpCards } from './components/card.js';
 import { 
     profileName,
     profileDescription, 
@@ -11,10 +11,10 @@ import {
     editButton, 
     profilePopup, 
     cardPopup, 
-    setInitialCards,
     avatarEditButton,
     avatarPopup,
     avatarObject } from './components/utils';
+import { loadUserInfo, loadInitialCards } from './components/api';
 
 
 const formSelector = '.popup__form';
@@ -23,8 +23,11 @@ const submitButtonSelector = '.popup__form-submit';
 const inactiveButtonClass = 'popup__form-submit_disabled';
 
 
-setUser();
-setInitialCards();
+Promise.all([loadUserInfo(), loadInitialCards()]).then((values) => {
+    setUser(values[0]);
+    setUpCards(values[1]);
+});
+
 enablePopupClosing();
 enablePopupButtons();
 enablePopupSubmit();

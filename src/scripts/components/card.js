@@ -45,11 +45,6 @@ function updateCard(cardObject, cardContent) {
 function onCardDeletion(cardId, event) {
     deleteCard(cardId)
         .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
-        }).then((res) => {
             event.target.closest('.card').remove();
         }).catch((err) => {
             console.log(`Ошибка: ${err}`);
@@ -57,19 +52,17 @@ function onCardDeletion(cardId, event) {
 }
 
 function onCardLike(cardId, event, counterObject) {
-    event.target.classList.toggle("card__button_liked");
-    likeCard(cardId, !event.target.classList.contains("card__button_liked"))
+    likeCard(cardId, event.target.classList.contains("card__button_liked"))
         .then((res) => {
             if (res.ok) {
                 return res.json();
             }
             return Promise.reject(res.status);
         }).then((res) => {
-            
+            event.target.classList.toggle("card__button_liked");
             counterObject.textContent = res.likes.length;
         }).catch((err) => {
             console.log(`Ошибка: ${err}`);
-            event.target.classList.toggle("card__button_liked");
         }) 
 }
 

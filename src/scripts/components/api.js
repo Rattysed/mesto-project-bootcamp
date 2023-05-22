@@ -6,22 +6,33 @@ const config = {
     }
 }
 
+function checkResponse(res) {
+    if (res.ok) {
+        return res.json();
+    }
+    return Promise.reject(res.status);
+}
+
+function request(url, options) {
+    return fetch(url, options).then(checkResponse);
+}
+
 export function loadUserInfo() {
-    return fetch(config.baseUrl + "/users/me", {
+    return request(config.baseUrl + "/users/me", {
         method: "GET",
         headers: config.headers
     });
 } 
   
 export function loadInitialCards() {
-    return fetch(config.baseUrl + "/cards", {
+    return request(config.baseUrl + "/cards", {
         method: "GET",
         headers: config.headers
     })
 }
 
 export function updateProfile(name, about) {
-    return fetch(config.baseUrl + "/users/me", {
+    return request(config.baseUrl + "/users/me", {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({
@@ -32,7 +43,7 @@ export function updateProfile(name, about) {
 }
 
 export function makeNewCard(cardContent) {
-    return fetch(config.baseUrl + "/cards", {
+    return request(config.baseUrl + "/cards", {
         method: "POST",
         headers: config.headers,
         body: JSON.stringify({
@@ -43,21 +54,21 @@ export function makeNewCard(cardContent) {
 }
 
 export function deleteCard(cardId) {
-    return fetch(config.baseUrl + `/cards/${cardId}`, {
+    return request(config.baseUrl + `/cards/${cardId}`, {
         method: "DELETE",
         headers: config.headers,
     });
 }
 
 export function likeCard(cardId, isLiked) {
-    return fetch(config.baseUrl + `/cards/likes/${cardId}`, {
+    return request(config.baseUrl + `/cards/likes/${cardId}`, {
         method: (isLiked ? "DELETE" : "PUT"),
         headers: config.headers,
     })
 }
 
 export function updateAvatar(link) {
-    return fetch(config.baseUrl + `/users/me/avatar`, {
+    return request(config.baseUrl + `/users/me/avatar`, {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({

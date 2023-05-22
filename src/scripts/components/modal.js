@@ -1,11 +1,11 @@
-import { updateProfile, loadUserInfo, makeNewCard, updateAvatar } from "./api";
+import { updateProfile, makeNewCard, updateAvatar } from "./api";
 import { addCardToDOM } from "./card";
 import { profileName, profileDescription, user, avatarObject } from "./utils";
 
 
 function onEscapePressed (evt) {
-    const popupToClose = document.querySelector('.popup_opened');
     if (evt.key === "Escape") {
+        const popupToClose = document.querySelector('.popup_opened');
         closePopup(popupToClose);
     }
 }
@@ -31,36 +31,19 @@ function setUserAvatar(link) {
     avatarObject.src = link;
 }
 
-export function setUser() {
-    loadUserInfo()
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-            return Promise.reject(res.status);
-        })
-        .then((res) => {
-            user._id = res._id;
-            setUserAvatar(res.avatar);
-            updateUserName(res.name, res.about);
-        })
-        .catch((err) => {
-            console.log(`Ошибка: ${err}`)
-        })
+export function setUser(res) {        
+    user._id = res._id;
+    setUserAvatar(res.avatar);
+    updateUserName(res.name, res.about);
 }
 
 export function onProfileSubmit(event) {
     const newName = event.target.name.value;
     const newDescription = event.target.description.value;
-    const buttonElement = event.target.querySelector('.button');
+    const buttonElement = event.submitter;
     buttonElement.innerText = "Обновляем...";
     updateProfile(newName, newDescription)
         .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
-        }).then((res) => {
             buttonElement.innerText = "Сохранить"
             updateUserName(newName, newDescription);
             closePopup(event.target.closest('.popup'));
@@ -78,15 +61,10 @@ export function onCardCreation(event) {
         name: event.target.name.value,
         link: event.target.link.value
     }
-    const buttonElement = event.target.querySelector('.button');
+    const buttonElement = event.submitter;
     buttonElement.innerText = "Создаём...";
     makeNewCard(cardContent)
         .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
-        }).then((res) => {
             buttonElement.innerText = "Создать";
             addCardToDOM(res);
             closePopup(event.target.closest('.popup'));
@@ -102,16 +80,11 @@ export function onCardCreation(event) {
 }
 
 export function onAvatarUpdate(event) {
-    const buttonElement = event.target.querySelector('.button');
+    const buttonElement = event.submitter;
     buttonElement.innerText = "Сохраняем...";
 
     updateAvatar(event.target.link.value)
         .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(res.status);
-        }).then((res) => {
             buttonElement.innerText = "Сохранить";
             setUserAvatar(res.avatar);
             closePopup(event.target.closest('.popup'));
