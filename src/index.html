@@ -12,12 +12,18 @@
     </header>
     <main class="main">
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="Аватарка">
+            
+            <div class="profile__avatar-container">
+
+                <div class="profile__avatar-overlay"></div>    
+                <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="Аватарка">
+            </div>
+            
             <div class="profile__info">
-                <h1 class="profile__name">Жак-Ив Кусто </h1>
+                <h1 class="profile__name">Загрузка... </h1>
                 <button type="button" class="button profile__edit-button"></button>
                 <p class="profile__description">
-                    Да зачем тут что-то писать кроме Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam voluptatum vero perferendis magni ab cupiditate suscipit, inventore eveniet? Officiis optio autem aut, fugiat cumque nobis enim perferendis nihil animi neque natus soluta quasi nisi assumenda reiciendis necessitatibus, veritatis temporibus iure. Ea labore veritatis possimus vero sapiente facere rerum quis at. Lorem ipsum dolor sit amet consectetur adipisicing elit. Est magnam iure explicabo numquam? Quam autem earum dolorum ducimus at assumenda veritatis laudantium unde nostrum? Hic a reprehenderit esse eos assumenda non ipsum suscipit, iste tempore porro quo harum maxime magni sit accusamus officia, velit commodi sed, eum vero soluta consequuntur.
+                   Загрузка...
                 </p>
             </div>
             <button type="button" class="button profile__add-button">
@@ -62,6 +68,19 @@
             </form>
         </div>
     </div>
+    <div class="popup popup_type_avatar" type="avatar">
+        <div class="popup__container">
+            <button type="button" class="button popup__close-button"></button>
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form novalidate name="popup-form" class="popup__form">
+                <fieldset class="popup__form-fieldset">
+                    <input required placeholder="Ссылка на картинку" name="link" type="url" class="popup__form-field">
+                    <span class="popup__error link-input-error"></span>
+                    <button type="submit" class="button popup__form-submit">Сохранить</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
     <div class="popup popup_type_picture" type="picture">
         <div class="popup__container popup__container_pictured">
             <button type="button" class="button popup__close-button"></button>
@@ -75,7 +94,10 @@
             <img src="" alt="Карточка Карачаевск" class="card__picture">
             <div class="card__details">
                 <h2 class="card__heading">Demo-card</h2> 
-                <button type="button" class="button card__button"></button>
+                <div class="card__like-container">
+                    <button type="button" class="button card__button"></button>
+                    <p class="card__like-counter">0</p>
+                </div>
             </div>
             <button type="button" class="button card__delete-button"></button>
         </div>

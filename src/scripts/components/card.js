@@ -1,36 +1,9 @@
-import { popupWithPicture, popupPicture } from './utils';
+import { popupWithPicture, popupPicture, user } from './utils';
 import { openPopup } from './modal';
-
-const defaultCardList = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-]
+import { deleteCard, likeCard } from './api';
 
 const cardTemplate = document.querySelector(".card-template").content;
 const cardHolder = document.querySelector(".elements");
-
 
 
 function updateCard(cardObject, cardContent) {
@@ -44,21 +17,68 @@ function updateCard(cardObject, cardContent) {
         popupWithPicture.querySelector('.popup__picture-description').textContent = cardContent.name;
     });
     cardObject.querySelector(".card__heading").textContent = cardContent.name;
-    cardObject.querySelector(".card__button").addEventListener('click', (event) => {
-        event.target.classList.toggle("card__button_liked");
-    })
-    cardObject.querySelector(".card__delete-button").addEventListener('click', (event) => {
-        event.target.closest('.card').remove();
-    })
+
+    const counterObject = cardObject.querySelector(".card__like-counter");
+    counterObject.textContent = cardContent.likes.length;
+
+    const likeButton = cardObject.querySelector(".card__button")
+    const isLiked = cardContent.likes.some((liker) => {
+        return liker._id == user._id;
+    });
+    if (isLiked || user._id == '') {
+        likeButton.classList.add("card__button_liked");
+    }
+    likeButton.addEventListener('click', (event) => {
+        onCardLike(cardContent._id, event, counterObject);
+    });
+    
+    const deleteButton = cardObject.querySelector(".card__delete-button");
+    if (user._id == cardContent.owner._id) {
+        deleteButton.addEventListener('click', (event) => {
+            onCardDeletion(cardContent._id, event);
+        })
+    } else {
+        deleteButton.classList.add('card__delete-button_disabled');
+    }
 }
 
+function onCardDeletion(cardId, event) {
+    deleteCard(cardId)
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(res.status);
+        }).then((res) => {
+            event.target.closest('.card').remove();
+        }).catch((err) => {
+            console.log(`Ошибка: ${err}`);
+        })
+}
 
-export function createCard(cardContent) {
+function onCardLike(cardId, event, counterObject) {
+    event.target.classList.toggle("card__button_liked");
+    likeCard(cardId, !event.target.classList.contains("card__button_liked"))
+        .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(res.status);
+        }).then((res) => {
+            
+            counterObject.textContent = res.likes.length;
+        }).catch((err) => {
+            console.log(`Ошибка: ${err}`);
+            event.target.classList.toggle("card__button_liked");
+        }) 
+}
+
+export function addCardToDOM(cardContent) {
     const newCard = cardTemplate.cloneNode(true);
     updateCard(newCard, cardContent)   
     cardHolder.prepend(newCard);
 }
 
-export function setUpCards() {
-    defaultCardList.forEach(createCard);
+export function setUpCards(cardList) {
+    cardList.reverse().forEach(addCardToDOM);
 }

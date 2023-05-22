@@ -1,8 +1,20 @@
 import '../pages/index.css';
-import { setUpCards, createCard } from './components/card';
-import { closePopup, openPopup} from './components/modal';
-import { enableValidation, updateButton } from './components/validate';
-import { profileName, profileDescription, closeButtons, popupList, addButton, editButton, profilePopup, cardPopup } from './components/utils';
+import { createCard } from './components/card.js';
+import { closePopup, openPopup, onProfileSubmit, onCardCreation, setUser, onAvatarUpdate} from './components/modal.js';
+import { enableValidation, updateButton } from './components/validate.js';
+import { 
+    profileName,
+    profileDescription, 
+    closeButtons, 
+    popupList, 
+    addButton, 
+    editButton, 
+    profilePopup, 
+    cardPopup, 
+    setInitialCards,
+    avatarEditButton,
+    avatarPopup,
+    avatarObject } from './components/utils';
 
 
 const formSelector = '.popup__form';
@@ -10,7 +22,9 @@ const inputSelector = '.popup__form-field';
 const submitButtonSelector = '.popup__form-submit';
 const inactiveButtonClass = 'popup__form-submit_disabled';
 
-setUpCards();
+
+setUser();
+setInitialCards();
 enablePopupClosing();
 enablePopupButtons();
 enablePopupSubmit();
@@ -38,25 +52,28 @@ function enablePopupButtons (){
         profileForm.description.value = profileDescription.innerText;
         updateButton(profileForm, submitButtonSelector, inputSelector, inactiveButtonClass);
     });
+
+    avatarEditButton.addEventListener('click', () => {
+        openPopup(avatarPopup);
+        const profileForm = avatarPopup.querySelector(formSelector);
+        profileForm.link.value = avatarObject.src;
+        updateButton(profileForm, submitButtonSelector, inputSelector, inactiveButtonClass);
+    })
 }
 
 function enablePopupSubmit () {
     profilePopup.querySelector('.popup__form').addEventListener('submit', (event) => {
         event.preventDefault();
-        profileName.innerText = event.target.name.value;
-        profileDescription.innerText = event.target.description.value;
-        closePopup(profilePopup);
+        onProfileSubmit(event);
     })
     cardPopup.querySelector('.popup__form').addEventListener('submit', (event) => {
         event.preventDefault();
-        createCard({
-            name: event.target.name.value,
-            link: event.target.link.value
-        });
-        event.target.name.value = "";
-        event.target.link.value = "";
-        closePopup(cardPopup);
+        onCardCreation(event);
     });
+    avatarPopup.querySelector('.popup__form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        onAvatarUpdate(event);
+    })
 }
 
 function enablePopupClosing() {    
